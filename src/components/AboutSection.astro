@@ -8,12 +8,17 @@ import { barberia } from '../data/barberia.js';
 const { about } = barberia;
 const basePath = (import.meta.env.BASE_URL || '/').replace(/\/$/, '');
 
+const withBase = (path: string) => {
+  if (!path) return '';
+  const normalized = path.startsWith('/') ? path : `/${path}`;
+  return `${basePath}${normalized}`;
+};
+
 const resolveLink = (href: string) => {
   if (!href) return '#';
   const isExternal = /^https?:\/\//.test(href) || href.startsWith('#') || href.startsWith('mailto:') || href.startsWith('tel:');
   if (isExternal) return href;
-  const path = href.startsWith('/') ? href : `/${href}`;
-  return `${basePath}${path}`;
+  return withBase(href);
 };
 ---
 
@@ -36,7 +41,7 @@ const resolveLink = (href: string) => {
         <div class="relative rounded-2xl overflow-hidden shadow-2xl shadow-yellow-600/20">
           <!-- Imagen del barbero o local -->
           <img 
-            src="/images/equipo-barberia.webp" 
+            src={withBase('/images/equipo-barberia.webp')} 
             alt="Equipo Barbería Premium Temuco" 
             class="rounded-xl w-full h-auto object-cover"
             loading="lazy"

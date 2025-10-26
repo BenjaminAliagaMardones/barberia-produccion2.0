@@ -32,6 +32,9 @@ const socialLinks = [
     description: 'Síguenos en Facebook',
   },
 ];
+
+const basePath = (import.meta.env.BASE_URL || '/').replace(/\/$/, '');
+const heroBackground = `${basePath}/images/local-barberia.webp`;
 ---
 
 <BaseLayout
@@ -42,7 +45,7 @@ const socialLinks = [
 
   <main class="bg-neutral-950 text-white">
     <section class="relative overflow-hidden py-24">
-      <div class="absolute inset-0 bg-[url('/images/local-barberia.webp')] bg-cover bg-center opacity-10"></div>
+      <div class="absolute inset-0 bg-cover bg-center opacity-10" style={`background-image: url('${heroBackground}')`}></div>
       <div class="absolute inset-0 bg-gradient-to-b from-neutral-950 via-neutral-950/95 to-neutral-950"></div>
       <div class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6" data-aos="fade-up">
         <p class="inline-flex items-center justify-center gap-2 rounded-full border border-yellow-500/30 bg-yellow-500/10 px-4 py-2 text-sm font-semibold text-yellow-200">

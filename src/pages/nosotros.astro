@@ -51,6 +51,10 @@ const hitos = [
     description: 'Más de 100 clientes activos nos eligen cada mes por nuestra atención cálida y resultados impecables.',
   },
 ];
+
+const basePath = (import.meta.env.BASE_URL || '/').replace(/\/$/, '');
+const heroBackground = `${basePath}/images/local-barberia.webp`;
+const teamImage = `${basePath}/images/equipo-barberia.webp`;
 ---
 
 <BaseLayout
@@ -61,7 +65,7 @@ const hitos = [
 
   <main class="bg-neutral-950 text-white">
     <section class="relative overflow-hidden py-28">
-      <div class="absolute inset-0 bg-[url('/images/local-barberia.webp')] bg-cover bg-center opacity-20"></div>
+      <div class="absolute inset-0 bg-cover bg-center opacity-20" style={`background-image: url('${heroBackground}')`}></div>
       <div class="absolute inset-0 bg-gradient-to-b from-neutral-950 via-neutral-950/90 to-neutral-950"></div>
       <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="max-w-3xl space-y-6" data-aos="fade-up">
@@ -88,7 +92,7 @@ const hitos = [
         <div data-aos="fade-right">
           <div class="overflow-hidden rounded-3xl border border-yellow-500/20 bg-neutral-900/70 shadow-2xl shadow-black/40">
             <img
-              src="/images/equipo-barberia.webp"
+              src={teamImage}
               alt="Equipo Barbería Premium Temuco"
               class="h-full w-full object-cover"
               loading="lazy"
