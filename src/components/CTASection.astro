@@ -14,6 +14,16 @@ interface Props {
   secondaryButtonLink?: string;
 }
 
+const basePath = (import.meta.env.BASE_URL || '/').replace(/\/$/, '');
+
+const resolveLink = (href: string | undefined) => {
+  if (!href) return '#';
+  const isExternal = /^https?:\/\//.test(href) || href.startsWith('#') || href.startsWith('mailto:') || href.startsWith('tel:');
+  if (isExternal) return href;
+  const path = href.startsWith('/') ? href : `/${href}`;
+  return `${basePath}${path}`;
+};
+
 const {
   title,
   subtitle,
@@ -58,7 +68,7 @@ const {
       class="flex flex-col sm:flex-row gap-4 justify-center"
     >
       <a
-        href={buttonLink}
+        href={resolveLink(buttonLink)}
         class="group relative inline-flex items-center justify-center bg-white text-brand-600 px-8 py-4 min-h-[56px] rounded-xl font-semibold text-lg overflow-hidden shadow-2xl hover:shadow-accent transition-all duration-300 hover:-translate-y-1 animate-pulse-btn"
       >
         <!-- Efecto glow en hover -->
@@ -78,7 +88,7 @@ const {
       
       {secondaryButtonText && secondaryButtonLink && (
         <a
-          href={secondaryButtonLink}
+          href={resolveLink(secondaryButtonLink)}
           class="group relative inline-flex items-center justify-center bg-transparent border-2 border-white text-white px-8 py-4 min-h-[56px] rounded-xl font-semibold text-lg hover:bg-white hover:text-brand-600 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl overflow-hidden"
         >
           <!-- Background slide effect -->

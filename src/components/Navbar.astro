@@ -1,66 +1,98 @@
 ---
 /**
  * Navbar.astro
- * Navbar sticky con glassmorphism, blur effect y shrink on scroll
+ * Navbar fijo con branding Barbería Premium y navegación multipágina
  */
 
 import { site } from '../data/config.js';
 
 const currentPath = Astro.url.pathname;
+
+const basePath = (import.meta.env.BASE_URL || '/').replace(/\/$/, '');
+
+const resolveLink = (href: string) => {
+  if (!href) return '#';
+  const isSpecial = href.startsWith('#') || href.startsWith('mailto:') || href.startsWith('tel:');
+  const isExternal = /^https?:\/\//.test(href);
+  if (isSpecial || isExternal) {
+    return href;
+  }
+  const path = href.startsWith('/') ? href : `/${href}`;
+  return `${basePath}${path}`;
+};
+
+const isActive = (href: string) => {
+  try {
+    const target = resolveLink(href);
+    if (target.startsWith('http') || target.startsWith('mailto:') || target.startsWith('tel:') || target.startsWith('#')) {
+      return false;
+    }
+    return target === currentPath;
+  } catch {
+    return false;
+  }
+};
 ---
 
-<!-- Navbar fijo con glassmorphism -->
 <nav 
   id="navbar"
-  class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-in-out"
-  style="background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);"
+  class="fixed top-0 left-0 right-0 z-50 backdrop-blur-lg border-b border-neutral-800/60 bg-neutral-950/85 transition-all duration-300 ease-in-out"
 >
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex justify-between items-center h-20 transition-all duration-300" id="navbar-content">
       
-      <!-- 🎨 Logo con animación hover -->
-      <a href="/" class="flex items-center space-x-2 group">
-        <div class="w-10 h-10 bg-gradient-to-br from-brand to-brand-800 rounded-xl flex items-center justify-center transform group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 shadow-lg group-hover:shadow-brand">
-          <span class="text-white font-bold text-xl">BM</span>
-        </div>
-        <span class="font-heading font-bold text-xl text-dark-900 hidden sm:block group-hover:text-brand transition-colors duration-300">
-          Benjamin <span class="text-brand">Mardones</span>
+      <!-- 🎨 Logo -->
+      <a href="/" class="flex items-center gap-3 group">
+        <img 
+          src="/images/logo-barberia.svg" 
+          alt="Barbería Premium" 
+          class="h-11 w-auto drop-shadow-lg group-hover:scale-105 transition-transform duration-300 hidden sm:block"
+          width="180"
+          height="48"
+          loading="lazy"
+          decoding="async"
+        />
+        <span class="font-heading font-semibold text-xl text-white sm:hidden">
+          Barbería Premium
         </span>
       </a>
 
       <!-- 🖥️ Desktop Navigation -->
-      <div class="hidden md:flex items-center space-x-1">
-        {site.navigation.main.map((link) => (
+      <div class="hidden md:flex items-center gap-1">
+        {site.navigation.main.map((link) => {
+          const href = resolveLink(link.href);
+          const active = isActive(link.href);
+          return (
           <a
-            href={link.href}
+            href={href}
             class={`px-4 py-2 rounded-lg font-medium transition-all duration-300 relative group ${
-              currentPath === link.href
-                ? 'text-brand bg-brand/10'
-                : 'text-dark-900 hover:text-brand hover:bg-brand/5'
+              active
+                ? 'text-yellow-400 bg-yellow-500/10'
+                : 'text-gray-200 hover:text-yellow-400 hover:bg-yellow-500/5'
             }`}
           >
             {link.text}
             <!-- Underline animado -->
-            <span class="absolute bottom-1 left-1/2 w-0 h-0.5 bg-brand transform -translate-x-1/2 group-hover:w-3/4 transition-all duration-300"></span>
+            <span class="absolute bottom-1 left-1/2 w-0 h-0.5 bg-yellow-500 transform -translate-x-1/2 group-hover:w-3/4 transition-all duration-300"></span>
           </a>
-        ))}
+          );
+        })}
         <!-- CTA Button con pulse effect -->
         <a
-          href="/contacto"
-          class="ml-4 px-6 py-2.5 bg-brand text-white rounded-lg font-semibold hover:bg-brand-700 transform hover:scale-105 transition-all duration-300 shadow-md hover:shadow-brand animate-pulse-slow"
+          href={resolveLink('/reservas')}
+          class="ml-3 px-6 py-2.5 rounded-full font-semibold text-neutral-900 bg-yellow-500 hover:bg-yellow-400 transform hover:scale-105 transition-all duration-300 shadow-gold hover:shadow-glow active:scale-95"
         >
-          Cotizar Proyecto
+          Agendar hora
         </a>
       </div>
 
-      <!-- 📱 Mobile Menu Button con animación -->
+      <!-- 📱 Mobile Menu Button -->
       <button
         id="mobile-menu-button"
-        class="md:hidden p-2 rounded-lg text-dark-900 hover:bg-brand/10 transition-all duration-300 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-brand focus:ring-offset-2"
+        class="md:hidden p-2.5 rounded-lg text-white hover:bg-yellow-500/10 transition-all duration-300 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2 focus:ring-offset-neutral-900"
         aria-label="Abrir menú"
         aria-expanded="false"
         aria-controls="mobile-menu"
-        aria-expanded="false"
       >
         <!-- Hamburger icon con animación -->
         <div class="w-6 h-5 flex flex-col justify-between">
@@ -75,28 +107,31 @@ const currentPath = Astro.url.pathname;
   <!-- 📱 Mobile Menu -->
   <div 
     id="mobile-menu" 
-    class="md:hidden border-t border-gray-200/50 bg-white/95 backdrop-blur-md overflow-hidden transition-all duration-300 max-h-0 opacity-0"
-    style="backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);"
+    class="md:hidden border-t border-neutral-800/60 bg-neutral-950/95 backdrop-blur-md overflow-hidden transition-all duration-300 max-h-0 opacity-0"
   >
     <div class="px-4 py-4 space-y-2">
-      {site.navigation.main.map((link, index) => (
+      {site.navigation.main.map((link, index) => {
+        const href = resolveLink(link.href);
+        const active = isActive(link.href);
+        return (
         <a
-          href={link.href}
+          href={href}
           class={`block px-4 py-3 rounded-lg font-medium transition-all duration-300 transform hover:translate-x-2 ${
-            currentPath === link.href
-              ? 'text-brand bg-brand/10'
-              : 'text-dark-900 hover:bg-brand/5'
+            active
+              ? 'text-yellow-400 bg-yellow-500/10'
+              : 'text-gray-200 hover:bg-yellow-500/10'
           }`}
           style={`animation-delay: ${index * 50}ms`}
         >
           {link.text}
         </a>
-      ))}
+        );
+      })}
       <a
-        href="/contacto"
-        class="block px-4 py-3 bg-brand text-white rounded-lg font-semibold text-center hover:bg-brand-700 transition-all duration-300 transform hover:scale-105 shadow-md"
+        href={resolveLink('/reservas')}
+        class="block px-4 py-3 text-center font-semibold text-neutral-900 bg-yellow-500 rounded-lg hover:bg-yellow-400 transition-all duration-300 transform hover:scale-105 shadow-gold"
       >
-        Cotizar Proyecto
+        Agendar hora
       </a>
     </div>
   </div>
@@ -131,13 +166,15 @@ const currentPath = Astro.url.pathname;
           
           if (currentScroll > 50) {
             // Navbar reducido y con sombra
-            navbar.style.boxShadow = '0 4px 6px -1px rgba(0, 0, 0, 0.1)';
+            navbar.style.backgroundColor = 'rgba(10, 10, 10, 0.92)';
+            navbar.style.boxShadow = '0 20px 45px rgba(0, 0, 0, 0.35)';
             navbarContent.classList.add('h-16');
             navbarContent.classList.remove('h-20');
             navbarSpacer.classList.add('h-16');
             navbarSpacer.classList.remove('h-20');
           } else {
             // Navbar tamaño normal
+            navbar.style.backgroundColor = '';
             navbar.style.boxShadow = 'none';
             navbarContent.classList.add('h-20');
             navbarContent.classList.remove('h-16');
@@ -159,22 +196,27 @@ const currentPath = Astro.url.pathname;
       
       if (isMenuOpen) {
         // Abrir menú
-        mobileMenu.style.maxHeight = '400px';
+        const menuHeight = `${mobileMenu.scrollHeight}px`;
+        mobileMenu.style.maxHeight = menuHeight;
         mobileMenu.style.opacity = '1';
         
         // Animar hamburger a X
-        menuLines[0].style.transform = 'rotate(45deg) translateY(8px)';
-        menuLines[1].style.opacity = '0';
-        menuLines[2].style.transform = 'rotate(-45deg) translateY(-8px)';
+        if (menuLines[0] && menuLines[1] && menuLines[2]) {
+          menuLines[0].style.transform = 'rotate(45deg) translateY(8px)';
+          menuLines[1].style.opacity = '0';
+          menuLines[2].style.transform = 'rotate(-45deg) translateY(-8px)';
+        }
       } else {
         // Cerrar menú
-        mobileMenu.style.maxHeight = '0';
+        mobileMenu.style.maxHeight = '0px';
         mobileMenu.style.opacity = '0';
         
         // Restaurar hamburger
-        menuLines[0].style.transform = 'none';
-        menuLines[1].style.opacity = '1';
-        menuLines[2].style.transform = 'none';
+        if (menuLines[0] && menuLines[1] && menuLines[2]) {
+          menuLines[0].style.transform = 'none';
+          menuLines[1].style.opacity = '1';
+          menuLines[2].style.transform = 'none';
+        }
       }
     });
     

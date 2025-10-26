@@ -97,6 +97,8 @@ export default function Testimonials({
                   src={testimonio.foto}
                   alt={testimonio.nombre}
                   className="w-14 h-14 rounded-full object-cover ring-2 ring-primary-200"
+                  loading="lazy"
+                  decoding="async"
                 />
                 <div>
                   <h4 className="font-bold text-neutral-900">

@@ -9,10 +9,10 @@ export const barberia = {
   business: {
     name: "Barbería Premium Temuco",
     tagline: "Cortes modernos. Estilo clásico.",
-    description: "Barbería profesional en Temuco con más de 5 años de experiencia. Ofrecemos servicios de corte, barba y cuidado masculino con atención personalizada.",
+    description: "Barbería profesional en Temuco. Degradados, afeitados y estilo premium con atención personalizada.",
     phone: "+56 9 8765 4321",
     phoneDisplay: "+56 9 8765 4321",
-    email: "contacto@barberiatemuco.cl",
+    email: "contacto@barberiapremium.cl",
     whatsapp: "56987654321",
     whatsappMessage: "Hola, quiero agendar una hora en la barbería",
     address: {
@@ -41,17 +41,17 @@ export const barberia = {
   hero: {
     badge: "💈 Barbería Premium en Temuco",
     title: "Cortes modernos.",
-    titleHighlight: "Estilo clásico.",
-    subtitle: "Barbería profesional en Temuco. Reserva tu hora y vive la experiencia de un servicio premium con atención personalizada.",
+    titleHighlight: "Tradición y estilo.",
+    subtitle: "Barbería Premium en Temuco. Más de 5 años de experiencia.",
     ctaPrimary: {
-      text: "Agendar Cita",
-      link: "https://wa.me/56987654321?text=Hola,%20quiero%20agendar%20una%20hora%20en%20la%20barbería",
-      icon: "✂️"
+      text: "Agendar hora",
+      link: "/reservas",
+      icon: "🗓️"
     },
     ctaSecondary: {
       text: "Ver Servicios",
-      link: "#servicios",
-      icon: "👇"
+      link: "/servicios",
+      icon: "✂️"
     },
     icons: [
       { icon: "✂️", label: "Cortes profesionales" },
@@ -249,7 +249,7 @@ export const barberia = {
   // 🎯 SEO
   seo: {
     title: "Barbería Premium Temuco | Cortes modernos y estilo clásico",
-    description: "Barbería profesional en Temuco. Cortes, barbas y estilo moderno con atención personalizada. Más de 5 años de experiencia. ¡Agenda tu hora!",
+    description: "Barbería profesional en Temuco. Degradados, afeitados y estilo premium.",
     keywords: [
       "barbería Temuco",
       "barbería premium",
@@ -262,7 +262,7 @@ export const barberia = {
       "corte masculino",
       "afeitado navaja"
     ],
-    ogImage: "/og-barberia.jpg",
+    ogImage: "/og-barberia.webp",
     twitterCard: "summary_large_image"
   }
 };

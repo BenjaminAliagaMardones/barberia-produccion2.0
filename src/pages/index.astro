@@ -8,7 +8,6 @@ export const prerender = true;
 
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Navbar from '../components/Navbar.astro';
-import BackgroundImage from '../components/BackgroundImage.astro';
 import ServiceCard from '../components/ServiceCard.astro';
 import TestimonialCard from '../components/TestimonialCard.astro';
 import AboutSection from '../components/AboutSection.astro';
@@ -16,6 +15,16 @@ import ContactSection from '../components/ContactSection.astro';
 import Footer from '../components/Footer.astro';
 import WhatsAppButton from '../components/WhatsAppButton.astro';
 import { barberia } from '../data/barberia.js';
+
+const basePath = (import.meta.env.BASE_URL || '/').replace(/\/$/, '');
+
+const resolveLink = (href: string) => {
+  if (!href) return '#';
+  const isExternal = /^https?:\/\//.test(href) || href.startsWith('#') || href.startsWith('mailto:') || href.startsWith('tel:');
+  if (isExternal) return href;
+  const path = href.startsWith('/') ? href : `/${href}`;
+  return `${basePath}${path}`;
+};
 ---
 
 <BaseLayout
@@ -25,132 +34,98 @@ import { barberia } from '../data/barberia.js';
 >
   <Navbar />
 
-  <!-- Hero Section - Barbería Premium con imagen de fondo -->
-  <section class="relative pt-20 md:pt-28 pb-12 md:pb-16 px-4 overflow-hidden min-h-[70vh] flex items-center bg-gradient-to-b from-neutral-900 via-black to-neutral-950">
-    
-    <!-- Imagen de fondo personalizable desde site.config.ts -->
-    <BackgroundImage />
-    
-    <!-- Fondo decorativo con textura radial -->
-    <div class="absolute inset-0 overflow-hidden pointer-events-none">
-      <!-- Degradado radial desde el centro -->
-      <div class="absolute inset-0 bg-gradient-radial from-yellow-600/10 via-transparent to-transparent"></div>
-      
-      <!-- Elementos dorados flotantes -->
-      <div class="absolute top-20 right-10 w-72 h-72 bg-yellow-600/10 rounded-full blur-3xl animate-pulse-slow"></div>
-      <div class="absolute bottom-20 left-10 w-96 h-96 bg-yellow-600/5 rounded-full blur-3xl animate-pulse-slow" style="animation-delay: 3s;"></div>
-      
-      <!-- Grid pattern sutil -->
-      <div class="absolute inset-0 opacity-5" style="background-image: radial-gradient(circle, #ca8a04 1px, transparent 1px); background-size: 50px 50px;"></div>
-    </div>
+  <!-- Hero Section renovada -->
+  <section class="relative isolate overflow-hidden min-h-[75vh] flex items-center pt-28 pb-24">
+    <div class="absolute inset-0 bg-[url('/images/local-barberia.webp')] bg-cover bg-center"></div>
+    <div class="absolute inset-0 bg-black/70"></div>
+    <div class="absolute inset-0 bg-gradient-to-b from-black/20 via-black/60 to-black/90"></div>
 
-    <div class="max-w-7xl mx-auto relative z-10 w-full">
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
-        <!-- Columna izquierda: Contenido -->
-        <div class="space-y-6 text-center lg:text-left">
-          <!-- Badge Premium + Oferta Urgencia -->
-          <div class="space-y-3 flex flex-col items-center lg:items-start">
+    <div class="relative z-10 w-full">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.8fr)] lg:items-center">
+          <div class="space-y-8 text-center lg:text-left">
             <div 
+              class="inline-flex items-center justify-center lg:justify-start px-5 py-2 rounded-full border border-yellow-500/40 bg-yellow-500/15 text-yellow-200 text-sm font-semibold tracking-wide backdrop-blur-sm"
               data-aos="fade-up"
-              data-aos-delay="100"
-              class="inline-flex items-center px-4 py-2 bg-yellow-600/20 border border-yellow-600/30 text-yellow-400 rounded-full text-sm font-semibold backdrop-blur-sm"
+              data-aos-delay="50"
             >
               {barberia.hero.badge}
             </div>
-            <!-- Badge de Urgencia/Promoción -->
-            <div 
-              data-aos="fade-down"
-              data-aos-delay="200"
-              class="inline-flex items-center px-5 py-2.5 bg-red-500/90 border border-red-400 text-white rounded-lg text-sm font-bold backdrop-blur-sm shadow-lg animate-pulse-slow hover:scale-105 transition-transform"
+
+            <h1 
+              class="font-heading text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-white font-bold leading-tight"
+              data-aos="fade-up"
+              data-aos-delay="150"
             >
-              <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"/>
-              </svg>
-              ⚡ 10% descuento en tu primera cita
+              {barberia.hero.title}
+              <span class="block text-yellow-400">{barberia.hero.titleHighlight}</span>
+            </h1>
+
+            <p 
+              class="text-lg md:text-xl text-neutral-200 max-w-2xl mx-auto lg:mx-0"
+              data-aos="fade-up"
+              data-aos-delay="250"
+            >
+              {barberia.hero.subtitle}
+            </p>
+
+            <div 
+              class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4"
+              data-aos="fade-up"
+              data-aos-delay="350"
+            >
+              <a 
+                href={resolveLink(barberia.hero.ctaPrimary.link)}
+                class="inline-flex items-center justify-center px-8 py-3.5 rounded-full bg-yellow-500 text-neutral-900 font-semibold shadow-gold hover:bg-yellow-400 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-glow"
+              >
+                <span class="mr-2 text-lg">{barberia.hero.ctaPrimary.icon}</span>
+                {barberia.hero.ctaPrimary.text}
+              </a>
+              <a 
+                href={resolveLink(barberia.hero.ctaSecondary.link)}
+                class="inline-flex items-center justify-center px-8 py-3.5 rounded-full border border-yellow-500/50 text-yellow-200 font-semibold hover:bg-yellow-500/10 transition-all duration-300"
+              >
+                <span class="mr-2 text-lg">{barberia.hero.ctaSecondary.icon}</span>
+                {barberia.hero.ctaSecondary.text}
+              </a>
+            </div>
+
+            <div 
+              class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-6"
+              data-aos="fade-up"
+              data-aos-delay="450"
+            >
+              {barberia.hero.stats.map((stat) => (
+                <div class="rounded-2xl border border-yellow-500/20 bg-white/5 backdrop-blur-sm px-6 py-5 text-center lg:text-left">
+                  <p class="text-3xl font-heading text-yellow-400">{stat.value}</p>
+                  <p class="mt-1 text-sm text-neutral-200">{stat.label}</p>
+                </div>
+              ))}
             </div>
           </div>
 
-          <!-- Título principal - Mayor contraste y tamaño -->
-          <div data-aos="fade-up" data-aos-delay="300">
-            <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-heading font-bold text-white leading-tight drop-shadow-2xl">
-              {barberia.hero.title}
-              <span class="block text-yellow-400 mt-2 text-shadow-lg">{barberia.hero.titleHighlight}</span>
-            </h1>
-          </div>
-
-          <!-- Subtítulo - Mayor legibilidad -->
-          <p 
-            class="text-lg md:text-xl text-gray-200 leading-relaxed drop-shadow-lg"
-            data-aos="fade-up"
+          <div 
+            class="hidden lg:block"
+            data-aos="fade-left"
             data-aos-delay="400"
           >
-            {barberia.hero.subtitle}
-          </p>
-
-          <!-- Botones CTA -->
-          <div 
-            class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start items-center pt-4"
-            data-aos="fade-up"
-            data-aos-delay="500"
-          >
-            <a 
-              href={barberia.hero.ctaPrimary.link}
-              class="inline-flex items-center justify-center px-8 py-4 bg-yellow-600 hover:bg-yellow-500 text-black font-bold text-lg rounded-full shadow-lg hover:shadow-yellow-600/50 transition-all duration-300 transform hover:scale-105"
-            >
-              <span class="mr-2">{barberia.hero.ctaPrimary.icon}</span>
-              {barberia.hero.ctaPrimary.text}
-            </a>
-          </div>
-          
-          <!-- Texto adicional con bandera y promoción -->
-          <p 
-            class="text-sm text-gray-400"
-            data-aos="fade-up"
-            data-aos-delay="600"
-          >
-            📍 Temuco, Chile 🇨🇱 — Atención por reserva
-          </p>
-
-          <!-- Stats -->
-          <div 
-            class="grid grid-cols-3 gap-4 pt-4 border-t border-neutral-700/50"
-            data-aos="fade-up"
-            data-aos-delay="600"
-          >
-            {barberia.hero.stats.map((stat) => (
-              <div class="text-center lg:text-left">
-                <p class="text-2xl md:text-3xl font-bold text-yellow-400 mb-1">{stat.value}</p>
-                <p class="text-xs md:text-sm text-neutral-300 font-medium">{stat.label}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <!-- Columna derecha: Imagen compacta -->
-        <div class="relative h-full" data-aos="fade-left" data-aos-delay="400">
-          <div class="relative rounded-2xl overflow-hidden shadow-2xl shadow-yellow-600/20 h-full">
-            <!-- Placeholder para imagen hero -->
-            <div class="h-full min-h-[500px] bg-gradient-to-br from-neutral-800 to-neutral-900 flex items-center justify-center border-4 border-yellow-600/30">
-              <div class="text-center p-6">
-                <div class="text-7xl mb-4">✂️</div>
-                <p class="text-yellow-400 text-xl font-bold mb-2">Barbería Premium</p>
-                <p class="text-neutral-400 text-sm">Temuco, Chile</p>
+            <div class="rounded-3xl border border-yellow-500/20 bg-neutral-900/70 backdrop-blur-lg p-8 shadow-2xl shadow-black/40">
+              <h2 class="font-heading text-2xl text-white mb-6">Experiencia Barbería Premium</h2>
+              <ul class="space-y-4 text-neutral-200">
+                {barberia.hero.icons.map((item) => (
+                  <li class="flex items-start gap-3">
+                    <span class="text-2xl text-yellow-400 leading-none">{item.icon}</span>
+                    <span class="text-base">{item.label}</span>
+                  </li>
+                ))}
+              </ul>
+              <div class="mt-8 rounded-2xl border border-yellow-500/20 bg-neutral-900/80 p-6 text-sm text-neutral-300">
+                📍 Temuco, Chile — Atención con reserva anticipada
               </div>
             </div>
           </div>
-          
-          <!-- Elementos decorativos dorados -->
-          <div class="absolute -bottom-6 -left-6 w-32 h-32 bg-yellow-600/20 rounded-full blur-3xl animate-pulse-slow"></div>
-          <div class="absolute -top-6 -right-6 w-32 h-32 bg-yellow-600/20 rounded-full blur-3xl animate-pulse-slow" style="animation-delay: 2s;"></div>
         </div>
       </div>
-    </div>
-
-    <!-- Onda decorativa inferior -->
-    <div class="absolute bottom-0 left-0 right-0">
-      <svg viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full">
-        <path d="M0 120L60 105C120 90 240 60 360 45C480 30 600 30 720 37.5C840 45 960 60 1080 67.5C1200 75 1320 75 1380 75L1440 75V120H1380C1320 120 1200 120 1080 120C960 120 840 120 720 120C600 120 480 120 360 120C240 120 120 120 60 120H0Z" fill="#0a0a0a"/>
-      </svg>
     </div>
   </section>
 

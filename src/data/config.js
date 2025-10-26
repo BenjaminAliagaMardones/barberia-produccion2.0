@@ -12,7 +12,7 @@ export const site = {
     description: "Barbería profesional en Temuco con más de 5 años de experiencia. Ofrecemos servicios de corte, barba y cuidado masculino con atención personalizada.",
     phone: "+56 9 8765 4321",
     phoneDisplay: "+56 9 8765 4321",
-    email: "contacto@barberiatemuco.cl",
+    email: "contacto@barberiapremium.cl",
     whatsapp: "56987654321",
     address: {
       street: "Av. Alemania 685",
@@ -33,17 +33,17 @@ export const site = {
 
   // 🎨 Hero Section
   hero: {
-    badge: "� Barbería Premium en Temuco",
+    badge: "💈 Barbería Premium en Temuco",
     title: "Cortes modernos.",
-    titleHighlight: "Estilo clásico.",
-    subtitle: "Barbería profesional en Temuco. Reserva tu hora y vive la experiencia de un servicio premium con atención personalizada.",
+    titleHighlight: "Tradición y estilo.",
+    subtitle: "Barbería Premium en Temuco. Más de 5 años de experiencia.",
     ctaPrimary: {
-      text: "Agendar Cita",
-      link: "https://wa.me/56987654321?text=Hola,%20quiero%20agendar%20una%20hora"
+      text: "Agendar hora",
+      link: "/reservas"
     },
     ctaSecondary: {
-      text: "Ver Servicios",
-      link: "#servicios"
+      text: "Ver servicios",
+      link: "/servicios"
     },
     stats: [
       { value: "5+", label: "Años de experiencia" },
@@ -238,21 +238,23 @@ export const site = {
   navigation: {
     main: [
       { text: "Inicio", href: "/", active: true },
-      { text: "Servicios", href: "#servicios" },
-      { text: "Nosotros", href: "#nosotros" },
-      { text: "Contacto", href: "#contacto" }
+      { text: "Servicios", href: "/servicios" },
+      { text: "Nosotros", href: "/nosotros" },
+      { text: "Reservas", href: "/reservas" },
+      { text: "Contacto", href: "/contacto" }
     ],
     footer: {
       quickLinks: [
         { text: "Inicio", href: "/" },
-        { text: "Servicios", href: "#servicios" },
-        { text: "Nosotros", href: "#nosotros" },
-        { text: "Contacto", href: "#contacto" }
+        { text: "Servicios", href: "/servicios" },
+        { text: "Nosotros", href: "/nosotros" },
+        { text: "Reservas", href: "/reservas" },
+        { text: "Contacto", href: "/contacto" }
       ],
       services: [
-        { text: "Corte Clásico", href: "#servicios" },
-        { text: "Degradado", href: "#servicios" },
-        { text: "Barba & Afeitado", href: "#servicios" }
+        { text: "Corte Clásico", href: "/servicios" },
+        { text: "Degradado", href: "/servicios" },
+        { text: "Barba & Afeitado", href: "/servicios" }
       ],
       legal: [
         { text: "Política de Privacidad", href: "/privacidad" },
@@ -279,9 +281,9 @@ export const site = {
   seo: {
     defaultTitle: "Barbería Premium Temuco | Cortes modernos y estilo clásico",
     titleTemplate: "%s | Barbería Premium Temuco",
-    defaultDescription: "Barbería profesional en Temuco. Cortes, barbas y estilo moderno con atención personalizada. Más de 5 años de experiencia. ¡Agenda tu hora!",
+    defaultDescription: "Barbería profesional en Temuco. Degradados, afeitados y estilo premium.",
     keywords: "barbería temuco, barbería premium, corte de pelo temuco, barba temuco, peluquería hombre, degradado fade, barbero profesional",
-    ogImage: "/og-barberia.jpg",
+    ogImage: "/og-barberia.webp",
     twitterCard: "summary_large_image",
     locale: "es_CL",
     type: "website"
@@ -292,14 +294,14 @@ export const site = {
 export const schemaOrg = {
   "@context": "https://schema.org",
   "@type": "HairSalon",
-  "@id": "https://barberiatemuco.cl#hairsalon",
+  "@id": "https://barberiapremium.cl#hairsalon",
   "name": site.business.name,
   "description": site.business.description,
-  "url": "https://barberiatemuco.cl",
+  "url": "https://barberiapremium.cl",
   "telephone": site.business.phone,
   "email": site.business.email,
   "priceRange": "$$",
-  "image": "https://barberiatemuco.cl/og-barberia.jpg",
+  "image": "https://barberiapremium.cl/og-barberia.webp",
   "address": {
     "@type": "PostalAddress",
     "streetAddress": site.business.address.street,
