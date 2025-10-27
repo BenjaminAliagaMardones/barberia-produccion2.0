@@ -22,7 +22,7 @@ const resolveLink = (href: string) => {
 };
 ---
 
-<section id="nosotros" class="py-20 px-4 bg-neutral-900">
+<section id="nosotros" class="py-16 lg:py-20 px-4 bg-neutral-900">
   <div class="max-w-7xl mx-auto">
     <!-- Encabezado -->
     <div class="text-center mb-16" data-aos="fade-up">
@@ -35,29 +35,18 @@ const resolveLink = (href: string) => {
       <div class="w-24 h-1 bg-yellow-500 mx-auto"></div>
     </div>
 
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
       <!-- Columna izquierda: Imagen del barbero/local -->
       <div class="relative" data-aos="fade-right">
-        <div class="relative rounded-2xl overflow-hidden shadow-2xl shadow-yellow-600/20">
-          <!-- Imagen del barbero o local -->
+        <div class="relative rounded-2xl overflow-hidden shadow-2xl shadow-yellow-600/20 aspect-[4/5] sm:aspect-[3/4] lg:aspect-[4/3]">
           <img 
-            src={withBase('/images/equipo-barberia.webp')} 
+            src={withBase('/images/john-karlo-mendoza-idzUojjazCg-unsplash.webp')} 
             alt="Equipo Barbería Premium Temuco" 
-            class="rounded-xl w-full h-auto object-cover"
+            class="w-full h-full object-cover"
             loading="lazy"
-            onerror="this.onerror=null; this.style.display='none'; this.nextElementSibling.style.display='flex';"
           />
-          <!-- Placeholder si la imagen no existe -->
-          <div class="hidden aspect-[4/5] bg-gradient-to-br from-neutral-800 to-neutral-900 items-center justify-center">
-            <div class="text-center p-8">
-              <div class="text-8xl mb-4">💈</div>
-              <p class="text-yellow-400 text-lg font-semibold">Barbería Premium</p>
-              <p class="text-neutral-400 text-sm mt-2">Local profesional en Temuco</p>
-            </div>
-          </div>
-          
           <!-- Badge flotante -->
-          <div class="absolute top-6 right-6 bg-yellow-600 text-black px-6 py-3 rounded-full shadow-lg">
+          <div class="absolute top-5 right-5 bg-yellow-600 text-black px-6 py-3 rounded-full shadow-lg">
             <p class="font-bold text-lg">5+ años</p>
             <p class="text-xs">de experiencia</p>
           </div>

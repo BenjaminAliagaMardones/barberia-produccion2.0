@@ -44,6 +44,8 @@ const services = [
 
 const basePath = (import.meta.env.BASE_URL || '/').replace(/\/$/, '');
 
+const servicesHeroBackground = `${basePath}/images/agustin-fernandez-1Pmp9uxK8X8-unsplash.webp`;
+
 const resolveLink = (href: string) => {
   if (!href) return '#';
   const isExternal = /^https?:\/\//.test(href) || href.startsWith('#') || href.startsWith('mailto:') || href.startsWith('tel:');
@@ -102,7 +104,8 @@ const galleryImage = (file: string) => `${basePath}/images/galeria/${file}`;
 
   <main class="bg-neutral-950 text-white">
     <section class="relative overflow-hidden py-28">
-      <div class="absolute inset-0 bg-gradient-to-br from-yellow-500/10 via-transparent to-yellow-500/10 pointer-events-none"></div>
+      <div class="absolute inset-0 bg-cover bg-center opacity-50" style={`background-image: url('${servicesHeroBackground}')`}></div>
+      <div class="absolute inset-0 bg-gradient-to-br from-neutral-950 via-neutral-950/70 to-neutral-950 pointer-events-none"></div>
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div class="max-w-3xl" data-aos="fade-up">
           <p class="inline-flex items-center gap-2 rounded-full border border-yellow-500/30 bg-yellow-500/10 px-4 py-2 text-sm font-semibold text-yellow-200">
