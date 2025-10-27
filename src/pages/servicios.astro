@@ -51,6 +51,47 @@ const resolveLink = (href: string) => {
   const path = href.startsWith('/') ? href : `/${href}`;
   return `${basePath}${path}`;
 };
+
+const galleryItems = [
+  {
+    src: 'corte-degrade.webp',
+    alt: 'Corte Degradado Moderno',
+    title: 'Corte Degradado Moderno',
+    delay: 0,
+  },
+  {
+    src: 'corte-clasico.webp',
+    alt: 'Corte Clásico Premium',
+    title: 'Corte Clásico Premium',
+    delay: 100,
+  },
+  {
+    src: 'corte-barba.webp',
+    alt: 'Corte y Barba a Navaja',
+    title: 'Corte y Barba a Navaja',
+    delay: 200,
+  },
+  {
+    src: 'afeitado-profesional.webp',
+    alt: 'Afeitado Profesional con Toalla Caliente',
+    title: 'Afeitado con Toalla Caliente',
+    delay: 300,
+  },
+  {
+    src: 'tinte-masculino.webp',
+    alt: 'Coloración y Tinte Masculino',
+    title: 'Coloración y Tinte Masculino',
+    delay: 400,
+  },
+  {
+    src: 'corte-disenos.webp',
+    alt: 'Corte con Diseños Personalizados',
+    title: 'Diseños y Detalles Personalizados',
+    delay: 500,
+  },
+];
+
+const galleryImage = (file: string) => `${basePath}/images/galeria/${file}`;
 ---
 
 <BaseLayout
@@ -139,6 +180,35 @@ const resolveLink = (href: string) => {
               </div>
             ))}
           </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-20 bg-neutral-950 bg-gradient-to-b from-neutral-950 via-neutral-900/60 to-neutral-950">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-4xl font-heading text-yellow-500 mb-10 text-center" data-aos="fade-up">
+          Galería de Estilos y Cortes
+        </h2>
+        <div class="grid gap-6 sm:grid-cols-2 md:grid-cols-3">
+          {galleryItems.map((item) => (
+            <div
+              class="relative group rounded-xl overflow-hidden shadow-lg transition-all duration-500 hover:shadow-yellow-600/40"
+              data-aos="zoom-in"
+              data-aos-delay={item.delay}
+            >
+              <img
+                src={galleryImage(item.src)}
+                alt={item.alt}
+                loading="lazy"
+                class="w-full h-80 object-cover transition-transform duration-500 group-hover:scale-110"
+              />
+              <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center">
+                <p class="text-yellow-400 text-xl font-semibold text-center px-4">
+                  {item.title}
+                </p>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </section>
